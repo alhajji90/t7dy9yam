@@ -1,0 +1,1079 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فارس الصيام: تحدي المسائل العشر</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cairo & Tajawal -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            background: radial-gradient(circle at center, #112d24 0%, #071610 100%);
+        }
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        .islamic-pattern {
+            background-image: radial-gradient(rgba(217, 119, 6, 0.1) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d221b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d97706;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-100 flex flex-col justify-between overflow-x-hidden relative islamic-pattern">
+
+    <!-- Stars Background Generator -->
+    <div id="stars-container" class="absolute inset-0 pointer-events-none overflow-hidden z-0"></div>
+
+    <!-- Header / Navbar -->
+    <header class="border-b border-emerald-800/50 bg-emerald-950/80 backdrop-blur-md py-4 px-6 sticky top-0 z-40">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <span class="text-3xl">🌙</span>
+                <div>
+                    <h1 class="text-lg md:text-xl font-bold text-amber-500">فارس الصيام</h1>
+                    <p class="text-xs text-emerald-300">تحدي المسائل العشر الفقهية</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div class="bg-emerald-900/60 border border-emerald-700/50 rounded-full px-4 py-1.5 flex items-center gap-2">
+                    <span class="text-amber-400 font-bold text-sm md:text-base" id="top-score">⭐ النقاط: 0</span>
+                </div>
+                <button id="mute-btn" onclick="toggleMute()" class="p-2 bg-emerald-900/40 hover:bg-emerald-800/60 border border-emerald-700/50 rounded-full transition-all text-lg">
+                    🔊
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow flex items-center justify-center p-4 md:p-8 z-10">
+        
+        <!-- WELCOME SCREEN -->
+        <section id="welcome-screen" class="max-w-2xl w-full bg-emerald-950/80 border-2 border-amber-500/30 rounded-3xl p-6 md:p-10 shadow-2xl backdrop-blur-lg relative overflow-hidden transition-all duration-500 transform scale-100">
+            <!-- Decorative Dome Design -->
+            <div class="absolute -top-10 left-1/2 -translate-x-1/2 opacity-10 w-80 h-40 bg-amber-500 rounded-b-full blur-2xl"></div>
+            
+            <div class="text-center relative z-10">
+                <div class="w-24 h-24 bg-amber-500/10 border-2 border-amber-400 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-amber-500/10">
+                    <svg class="w-12 h-12 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                
+                <span class="inline-block px-4 py-1 bg-emerald-900/80 border border-emerald-600 rounded-full text-xs text-emerald-300 font-semibold mb-4">
+                    مستوحى من كتاب الشيخ د. صالح السندي
+                </span>
+                
+                <h2 class="text-3xl md:text-4xl font-extrabold text-amber-400 mb-4 drop-shadow">تحدي فقه الصيام التفاعلي</h2>
+                
+                <p class="text-slate-300 text-sm md:text-base mb-8 leading-relaxed max-w-lg mx-auto">
+                    أهلاً بك يا بطل في مغامرة علمية ممتعة! انطلق في رحلة فقهية شيقة تجتاز خلالها <span class="text-amber-400 font-bold">10 مسائل كبرى</span> في الصيام. تعلّم الأحكام، واجه التحديات، واحصل على لقبك الفقهي المميّز!
+                </p>
+
+                <div class="space-y-4 max-w-sm mx-auto">
+                    <button onclick="startGame()" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-emerald-950 font-bold text-lg py-4 px-8 rounded-2xl shadow-xl hover:shadow-amber-500/20 active:scale-95 transition-all flex items-center justify-center gap-2">
+                        <span>ابدأ المغامرة الآن</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <p class="text-xs text-emerald-400">جميع الأحكام مأخوذة من الكتيب المعتمد للتبسيط العلمي الفقهي</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAP SCREEN (STAGE SELECT) -->
+        <section id="map-screen" class="hidden max-w-4xl w-full bg-emerald-950/60 border border-emerald-800/40 rounded-3xl p-6 md:p-8 shadow-2xl backdrop-blur-md">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl font-bold text-amber-400">خارطة التحدي الفقهي</h3>
+                <p class="text-xs text-slate-300 mt-1">اجتز المسائل بالترتيب لتصل لدرجة الفارس الفقية</p>
+                
+                <!-- Overall Progress Bar -->
+                <div class="max-w-md mx-auto mt-4 bg-emerald-900/50 rounded-full h-3 border border-emerald-700/50 overflow-hidden">
+                    <div id="overall-progress" class="bg-amber-500 h-full w-0 transition-all duration-500"></div>
+                </div>
+            </div>
+
+            <!-- Stages Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4" id="stages-grid">
+                <!-- JavaScript will populate stages here -->
+            </div>
+            
+            <div class="mt-8 text-center" id="finish-game-area" style="display:none;">
+                <button onclick="showFinalCertificate()" class="bg-gradient-to-r from-amber-400 to-amber-500 text-emerald-950 font-extrabold px-8 py-3.5 rounded-2xl shadow-lg hover:from-amber-500 hover:to-amber-600 active:scale-95 transition-all">
+                    🏆 عرض شهادة التخرج الفقهية!
+                </button>
+            </div>
+        </section>
+
+        <!-- ACTIVE GAMEPLAY CONTAINER -->
+        <section id="gameplay-screen" class="hidden max-w-3xl w-full bg-emerald-950/80 border-2 border-emerald-800 rounded-3xl p-6 md:p-8 shadow-2xl backdrop-blur-md relative">
+            
+            <!-- Level Header -->
+            <div class="flex justify-between items-center border-b border-emerald-800 pb-4 mb-6">
+                <div>
+                    <span class="text-xs text-amber-400 font-bold uppercase tracking-wider" id="level-number-badge">المسألة الأولى</span>
+                    <h4 class="text-xl font-bold text-slate-100 mt-1" id="level-title">عنوان المسألة</h4>
+                </div>
+                <button onclick="exitToMap()" class="text-xs bg-emerald-900/60 hover:bg-emerald-800 border border-emerald-700/40 rounded-xl px-3 py-1.5 transition-all text-emerald-300">
+                    ⬅️ العودة للخارطة
+                </button>
+            </div>
+
+            <!-- VIEW 1: STUDY/PRE-LESSON CARD -->
+            <div id="study-card" class="space-y-6">
+                <div class="bg-emerald-900/30 border border-amber-500/20 rounded-2xl p-5 md:p-6 text-slate-200 leading-relaxed space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-3xl">📖</span>
+                        <h5 class="text-lg font-bold text-amber-300">افهم وتعلّم أولاً:</h5>
+                    </div>
+                    <div class="text-sm md:text-base space-y-3" id="lesson-text">
+                        <!-- Filled by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="flex justify-center pt-2">
+                    <button onclick="startLevelChallenge()" class="bg-amber-500 hover:bg-amber-600 text-emerald-950 font-bold px-8 py-3 rounded-xl shadow-lg active:scale-95 transition-all flex items-center gap-2">
+                        <span>فهمت، ابدأ التحدي التفاعلي!</span>
+                        <span>🔥</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- VIEW 2: INTERACTIVE CHALLENGE INTERFACE -->
+            <div id="challenge-card" class="hidden space-y-6">
+                <!-- Visual Challenge Area (Dynamically Rendered per Level Type) -->
+                <div id="interactive-workspace" class="min-h-[220px] bg-emerald-900/20 border border-emerald-800 rounded-2xl p-4 md:p-6 flex flex-col justify-center">
+                    <!-- Dynamic content injects here -->
+                </div>
+
+                <!-- Explanation / Feedback Box (Post Answer) -->
+                <div id="feedback-box" class="hidden border rounded-2xl p-4 transition-all duration-300">
+                    <div class="flex items-start gap-3">
+                        <span id="feedback-icon" class="text-2xl"></span>
+                        <div>
+                            <h6 id="feedback-title" class="font-bold">ممتع!</h6>
+                            <p id="feedback-desc" class="text-sm mt-1 text-slate-200"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Navigation inside level -->
+                <div class="flex justify-end pt-2" id="level-actions">
+                    <!-- Dynamic submit/next buttons -->
+                </div>
+            </div>
+
+        </section>
+
+        <!-- CERTIFICATE / GAME OVER SCREEN -->
+        <section id="certificate-screen" class="hidden max-w-2xl w-full bg-white text-slate-900 rounded-3xl p-6 md:p-10 shadow-2xl relative border-8 border-double border-amber-600">
+            <!-- Islamic Arch Motif -->
+            <div class="absolute inset-4 border-2 border-amber-500/30 pointer-events-none rounded-2xl"></div>
+            
+            <div class="text-center relative z-10 space-y-6">
+                <div class="text-amber-600 font-serif text-3xl md:text-4xl">📜</div>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-emerald-900">شهادة اجتياز فقه الصيام</h2>
+                <p class="text-xs text-slate-500 font-semibold tracking-widest uppercase">البرنامج التفاعلي لكتيب مسائل الصيام</p>
+                
+                <div class="py-6 border-y border-amber-200/60 my-6">
+                    <p class="text-sm text-slate-600">تشهد منصة "فارس الصيام" التفاعلية بأن البطل الكريم:</p>
+                    <div class="my-4">
+                        <input type="text" id="cert-name" value="فارس المعرفة الصائم" class="text-center text-xl md:text-2xl font-bold text-emerald-950 border-b-2 border-dashed border-amber-500 focus:outline-none bg-amber-50/50 px-4 py-1 max-w-xs mx-auto rounded" placeholder="اكتب اسمك هنا">
+                    </div>
+                    <p class="text-sm text-slate-600">قد اجتاز بنجاح متميز جميع الاختبارات الفقهية والتحديات التفاعلية لـ <span class="font-bold text-emerald-800">المسائل العشر الكبرى في الصيام</span>.</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 max-w-sm mx-auto bg-emerald-50 p-4 rounded-2xl border border-emerald-100">
+                    <div>
+                        <span class="text-xs text-slate-500 block">النتيجة الإجمالية</span>
+                        <span class="text-xl font-black text-emerald-800" id="cert-score">0 / 100</span>
+                    </div>
+                    <div>
+                        <span class="text-xs text-slate-500 block">اللقب الفقهي المُستحق</span>
+                        <span class="text-md font-bold text-amber-600" id="cert-rank">مفتي الديار الواعد</span>
+                    </div>
+                </div>
+
+                <p class="text-xs text-slate-400 italic">مستوحى ومراجع من كتب ومؤلفات د. صالح بن عبد العزيز السندي</p>
+
+                <div class="pt-6 flex flex-col md:flex-row gap-3 justify-center">
+                    <button onclick="restartGame()" class="bg-emerald-900 hover:bg-emerald-950 text-white font-bold px-6 py-3 rounded-xl shadow-md transition-all active:scale-95 text-sm">
+                        🔄 إعادة المغامرة
+                    </button>
+                    <button onclick="window.print()" class="bg-amber-500 hover:bg-amber-600 text-emerald-950 font-bold px-6 py-3 rounded-xl shadow-md transition-all active:scale-95 text-sm flex items-center justify-center gap-2">
+                        🖨️ طباعة الشهادة
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-emerald-900/30 bg-emerald-950/40 py-4 px-6 text-center text-xs text-emerald-400/80 z-10">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+            <p>لعبة تعليمية مبنية على كتيب "عشر مسائل مهمة في الصيام" للدكتور صالح بن عبدالعزيز بن عثمان سندي</p>
+            <p class="font-mono text-[10px] opacity-70">بيئة التعلم التفاعلية الإسلامية © 2026</p>
+        </div>
+    </footer>
+
+    <!-- JS Logic -->
+    <script>
+        // Global Game States
+        let score = 0;
+        let isMuted = false;
+        let currentLevelIndex = 0;
+        let completedLevels = {}; // stores levelIndex -> boolean
+        let scorePerLevel = {}; // levelIndex -> earned score
+        
+        // Web Audio Context setup for synth sounds (safari-proofed)
+        let audioCtx = null;
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            return audioCtx;
+        }
+
+        // Sound effect generator
+        function playTone(freq, type, duration, delay = 0) {
+            if (isMuted) return;
+            try {
+                const ctx = getAudioContext();
+                if (ctx.state === 'suspended') {
+                    ctx.resume();
+                }
+                setTimeout(() => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = type;
+                    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+                    
+                    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+                    
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(ctx.currentTime + duration);
+                }, delay * 1000);
+            } catch (e) {
+                console.log("Audio play error", e);
+            }
+        }
+
+        function playCorrectSound() {
+            playTone(523.25, 'sine', 0.15); // C5
+            playTone(659.25, 'sine', 0.25, 0.1); // E5
+        }
+
+        function playIncorrectSound() {
+            playTone(220, 'triangle', 0.3); // A3
+            playTone(180, 'triangle', 0.4, 0.15); 
+        }
+
+        function playVictorySound() {
+            playTone(261.63, 'sine', 0.1); // C4
+            playTone(329.63, 'sine', 0.1, 0.1); // E4
+            playTone(392.00, 'sine', 0.1, 0.2); // G4
+            playTone(523.25, 'sine', 0.4, 0.3); // C5
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            document.getElementById('mute-btn').innerText = isMuted ? '❌' : '🔊';
+        }
+
+        // Generate Background Twinkling Stars
+        function generateStars() {
+            const container = document.getElementById('stars-container');
+            const totalStars = 50;
+            for (let i = 0; i < totalStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = `${Math.random() * 3 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 3}s`;
+                container.appendChild(star);
+            }
+        }
+
+        // LEVELS DATABASE (Directly from the PDF Content)
+        const levels = [
+            {
+                index: 0,
+                badge: "المسألة الأولى",
+                title: "ثبوت دخول الشهر",
+                lesson: `
+                    <p>دخول شهر رمضان له <strong>طريقان شرعيان لا ثالث لهما</strong>:</p>
+                    <ul class="list-disc pr-5 space-y-2 text-emerald-200 mt-2">
+                        <li><strong>رؤية الهلال:</strong> لقوله ﷺ: "صُومُوا لِرُؤْيَتِهِ".</li>
+                        <li><strong>إكمال شعبان ثلاثين يوماً:</strong> في حال تعذّر رؤية الهلال لغيم أو عارض.</li>
+                    </ul>
+                    <div class="mt-4 p-3 bg-red-950/40 border border-red-500/30 rounded-xl text-amber-200 text-sm">
+                        ⚠️ <strong>تنبيه فقهي هام:</strong> لا عبرة بالحساب الفلكي ولا يصح اعتماده في الصوم والفطر بالنص والإجماع، واعتماده من التنطع المذموم في الدين.
+                    </div>
+                `,
+                type: "scenario",
+                challenge: {
+                    instruction: "تقدم لك ثلاثة أشخاص يسألونك الفتوى بشأن دخول شهر رمضان، ما القرار الصحيح لكل حالة؟",
+                    scenarios: [
+                        {
+                            text: "جاء شخص ثقة (شاهد عدل) يشهد برؤية هلال رمضان بصره ليلة الثلاثين من شعبان.",
+                            options: [
+                                { text: "نصوم رمضان بناءً على رؤيته الشرعية", correct: true },
+                                { text: "ننتظر الحساب الفلكي ليتأكد لنا", correct: false }
+                            ],
+                            feedback: "أحسنتم! الرؤية من شاهد عدل تكفي لإثبات دخول الشهر شرعاً."
+                        },
+                        {
+                            text: "ليلة الثلاثين من شعبان، تعذرت رؤية الهلال تماماً بسبب الغيوم الكثيفة والأمطار.",
+                            options: [
+                                { text: "نصوم احتياطاً لرمضان", correct: false },
+                                { text: "نُكمل شعبان ثلاثين يوماً ثم نصوم", correct: true }
+                            ],
+                            feedback: "صحيح! لقوله ﷺ: 'فإن غُم عليكم فأكملوا عدة شعبان ثلاثين'."
+                        },
+                        {
+                            text: "أصدر مرصد فلكي بياناً يقول فيه: 'الحسابات الهندسية تؤكد ولادة القمر واستحالة رؤيته، ولذلك سنعلن الصيام بالحساب دون الرؤية العينية'.",
+                            options: [
+                                { text: "نوافقهم ونصوم اعتماداً على الحساب الدقيق", correct: false },
+                                { text: "لا عبرة بالحساب الفلكي ونلتزم بالرؤية أو إكمال العدة", correct: true }
+                            ],
+                            feedback: "رائع وفقه دقيق! الحساب الفلكي لا يصح اعتماده بالإجماع والنصوص الشرعية."
+                        }
+                    ]
+                }
+            },
+            {
+                index: 1,
+                badge: "المسألة الثانية",
+                title: "صوم يوم الشك",
+                lesson: `
+                    <p><strong>يوم الشك:</strong> هو اليوم الثلاثون من شعبان إذا لم يُر الهلال في ليلته لغيم أو نحوه.</p>
+                    <p class="mt-2"><strong>الحكم الفقهي:</strong> لا يشرع صيام يوم الشك بل <strong>صيامه محرم</strong> على الصحيح لحديث عمار رضي الله عنه: "مَنْ صام اليوم الذي يُشك فيه فقد عصى أبا القاسم".</p>
+                    <p class="mt-2 text-emerald-300"><strong>الاستثناء الوحيد:</strong> إذا وافق يوماً معتاداً للشخص صيامه (كصيام الإثنين والخميس، أو صيام داود) فيجوز صومه لغرض عادته لا احتياطاً لرمضان.</p>
+                `,
+                type: "scenario",
+                challenge: {
+                    instruction: "قيّم تصرفات هؤلاء الصائمين في يوم الشك (30 شعبان):",
+                    scenarios: [
+                        {
+                            text: "خالد قرر أن يصوم يوم الشك خوفاً من أن يكون الرائي قد أخطأ، وقال 'أصومه احتياطاً لرمضان'.",
+                            options: [
+                                { text: "تصرفه خاطئ وصيامه محرم احتياطاً", correct: true },
+                                { text: "تصرفه حسن للاحتياط في العبادة", correct: false }
+                            ],
+                            feedback: "ممتاز! الاحتياط المبتدع مكروه أو محرم، والشرع نهى عن صومه احتياطاً."
+                        },
+                        {
+                            text: "عبدالرحمن اعتاد صيام يوم الإثنين دائماً، فصادف يوم الشك يوم الإثنين، فصامه بنيّة عادته.",
+                            options: [
+                                { text: "يجوز له الصيام ولا حرج عليه", correct: true },
+                                { text: "لا يجوز له ويجب عليه الإفطار قطعاً", correct: false }
+                            ],
+                            feedback: "أحسنت! يستثنى من كان له صوم معتاد فصادف يوم عادته."
+                        }
+                    ]
+                }
+            },
+            {
+                index: 2,
+                badge: "المسألة الثالثة",
+                title: "حكم العاجز والمريض",
+                lesson: `
+                    <p>ينقسم العاجز والمريض في الصيام إلى أقسام محددة:</p>
+                    <ul class="list-decimal pr-5 space-y-2 mt-2 text-emerald-200">
+                        <li><strong>العاجز العقلي (المجنون فاقد التكليف):</strong> لا يلزمه شيء ولا على أهله شيء.</li>
+                        <li><strong>كبير السن العاجز:</strong> يفطر ويطعم عن كل يوم مسكيناً (نصف صاع = 1.5 كجم أرز تقريباً) أو يعشيهم جمعاً.</li>
+                        <li><strong>المريض مرضاً لا يرجى شفاؤه:</strong> حكمه ككبير السن (الإطعام فقط دون قضاء).</li>
+                        <li><strong>المريض مرضاً يرجى شفاؤه:</strong> يفطر ويقضي بعد شفائه حتى لو تأخر الشفاء لرمضان القادم.</li>
+                        <li><strong>المريض مرضاً يسيراً (زكام خفيف مثلاً):</strong> لا يجوز له الإفطار ويجب عليه الصيام.</li>
+                    </ul>
+                `,
+                type: "matching",
+                challenge: {
+                    instruction: "قم بمطابقة كل حالة بالخيار الفقهي المناسب لها:",
+                    pairs: [
+                        { item: "شيخ كبير السن يعجز تماماً عن الصيام", answer: "يفطر ويطعم مسكيناً عن كل يوم" },
+                        { item: "شاب مصاب بزكام بسيط وصداع خفيف جداً", answer: "يجب عليه الصيام ولا يجوز فطره" },
+                        { item: "مريض بمرض مزمن خطير قرر الأطباء عدم علاجه أو زواله", answer: "يفطر ويطعم دون قضاء" },
+                        { item: "مريض أجرى عملية جراحية وسيتعافى بعد شهرين", answer: "يفطر ويقضي بعد الشفاء" }
+                    ]
+                }
+            },
+            {
+                index: 3,
+                badge: "المسألة الرابعة",
+                title: "صوم المسافر وفطره",
+                lesson: `
+                    <p>للمسافر في الصيام ثلاث حالات واضحة:</p>
+                    <ul class="list-disc pr-5 space-y-2 mt-2 text-emerald-200">
+                        <li><strong>حالة الضرر الشديد:</strong> يجب عليه الفطر ويحرم الصوم.</li>
+                        <li><strong>حالة المشقة غير الضارة:</strong> الأفضل له الفطر أخذاً برخصة الله.</li>
+                        <li><strong>حالة استواء الصوم والفطر (السفر مريح):</strong> مخير، والصيام في حقه أفضل لتعجيل إبراء الذمة والنشاط مع الناس.</li>
+                    </ul>
+                `,
+                type: "scenario",
+                challenge: {
+                    instruction: "أنت المفتي الآن، وجّه المسافرين للأنسب لهم بحسب الحالات التالية:",
+                    scenarios: [
+                        {
+                            text: "أحمد مسافر بالطائرة الحديثة والمكيفة في رحلة مريحة جداً لا مشقة فيها، ويقول الصيام والفطر عندي سواء.",
+                            options: [
+                                { text: "الصيام أفضل له لتعجيل براءة ذمته والسهولة", correct: true },
+                                { text: "الفطر فرض عليه لأن السفر مانع مطلق للوجوب", correct: false }
+                            ],
+                            feedback: "صحيح! إذا تساوى الأمران فالصوم أفضل لإبراء الذمة وموافقة صيام الناس."
+                        },
+                        {
+                            text: "سعيد يسافر ماشياً في الصحراء وقد أصابه عطش مجهد كاد أن يغمى عليه بسببه.",
+                            options: [
+                                { text: "يجب عليه الصوم صبراً واحتساباً", correct: false },
+                                { text: "يجب عليه الفطر شرعاً ويحرم عليه الصوم لحفظ النفس", correct: true }
+                            ],
+                            feedback: "رائع! إذا كان الصوم يضر المسافر أو يتلف نفسه فالفطر واجب شرعاً."
+                        }
+                    ]
+                }
+            },
+            {
+                index: 4,
+                badge: "المسألة الخامسة",
+                title: "صيام الحامل والمرضع",
+                lesson: `
+                    <p>الحامل والمرضع تفطران إذا شق عليهما الصيام أو خافتا على الجنين والولد:</p>
+                    <ul class="list-disc pr-5 space-y-2 mt-2 text-emerald-200">
+                        <li><strong>الحال الطبيعي:</strong> إن لم يشق عليهما ولا ضرر وجب الصيام.</li>
+                        <li><strong>حال المشقة أو الخوف على الولد:</strong> يجوز لهما الفطر وعليهما <strong>القضاء فحسب</strong>.</li>
+                        <li><strong>الاحتياط الفقهي:</strong> إن كان الفطر لخوفهما على الجنين، فالإطعام مع القضاء مستحب احتياطاً وخروجاً من الخلاف.</li>
+                    </ul>
+                `,
+                type: "scenario",
+                challenge: {
+                    instruction: "أجب عن المسألة الفقهية التالية الموجهة للحامل والمرضع:",
+                    scenarios: [
+                        {
+                            text: "امرأة حامل في شهرها الثامن حذرها الطبيب من أن قلة شرب الماء في الصيام يضر بصحة الجنين، فماذا تفعل؟",
+                            options: [
+                                { text: "تفطر وعليها القضاء لاحقاً بعد الولادة والرضاع", correct: true },
+                                { text: "تفطر وتطعم فقط دون أي قضاء أبداً", correct: false }
+                            ],
+                            feedback: "إجابة ممتازة! الحامل والمرضع عليهما القضاء عند تيسر الأمر كالمريض والمسافر."
+                        }
+                    ]
+                }
+            },
+            {
+                index: 5,
+                badge: "المسألة السادسة",
+                title: "صيام الحائض والنفساء",
+                lesson: `
+                    <p>الحائض والنفساء <strong>لا يجوز ولا يصح منهما الصيام بالإجماع</strong>، وعليهما قضاء الأيام الفائتة.</p>
+                    <p class="mt-2">عن عائشة رضي الله عنها قالت: "كان يصيبنا ذلك فنؤمر بقضاء الصوم ولا نؤمر بقضاء الصلاة".</p>
+                    <div class="mt-4 p-3 bg-emerald-900/40 border border-emerald-600 rounded-xl text-amber-200 text-sm">
+                        ⭐ <strong>تنبيه دقيق:</strong> إذا طهرت الحائض قبل الفجر ولو بلحظات، وجب عليها الصوم وصح صومها ولو لم تغتسل إلا بعد طلوع الفجر.
+                    </div>
+                `,
+                type: "scenario",
+                challenge: {
+                    instruction: "تحدي الدقة الفقهية للحائض والنفساء:",
+                    scenarios: [
+                        {
+                            text: "انقطع دم الحيض عن فاطمة قبل أذان الفجر بدقيقتين، فقامت وتسحرت ونوت الصيام، وأخرت غسل الطهارة لما بعد الصلاة الصبح.",
+                            options: [
+                                { text: "صيامها صحيح تماماً لأن الطهر وقع قبل الفجر", correct: true },
+                                { text: "صيامها باطل لأنها بدأت الصوم وهي لم تغتسل", correct: false }
+                            ],
+                            feedback: "أحسنت جداً! العبرة بانقطاع الدم قبل الفجر، وتأخير الغسل لا يبطل الصيام كالمجنب."
+                        }
+                    ]
+                }
+            },
+            {
+                index: 6,
+                badge: "المسألة السابعة",
+                title: "مفسدات الصيام التفاعلية",
+                lesson: `
+                    <p>تنقسم مفسدات الصيام التي تعترض الصائم في يومه إلى مفطرات وغير مفطرات، وهنا فصيلها بحسب ترجيحات الكتاب:</p>
+                    <ul class="list-disc pr-5 space-y-1 mt-2 text-emerald-200 text-sm">
+                        <li><strong>المفطرات:</strong> الأكل والشرب عمداً، الإبر المغذية، نقل الدم، قطرة الأنف (إذا وصلت الحلق)، الجماع، الاستمناء، القيء عمداً، الحجامة (على الصحيح).</li>
+                        <li><strong>غير المفطرات:</strong> الأكل والشرب نسياناً، السواك، الإبر العلاجية (غير المغذية)، سحب الدم اليسير للتحليل، التحاميل الشرجية، قطرة العين والأذن، الاحتلام، بلع المذي.</li>
+                    </ul>
+                `,
+                type: "sorting-belt",
+                challenge: {
+                    instruction: "فرز مفسدات الصيام: اضغط على الزر الصحيح لتصنيف المادة التي ستظهر أمامك:",
+                    items: [
+                        { name: "الإبر المغذية الوريدية", isBreaker: true },
+                        { name: "بلع الطعام نسياناً", isBreaker: false },
+                        { name: "القيء عمداً باليد", isBreaker: true },
+                        { name: "قطرة العين والأذن", isBreaker: false },
+                        { name: "سحب دم يسير للتحليل", isBreaker: false },
+                        { name: "عمل الحجامة (المحجوم)", isBreaker: true },
+                        { name: "الاحتلام أثناء النوم نهاراً", isBreaker: false },
+                        { name: "قطرة الأنف الواصلة للحلق", isBreaker: true },
+                        { name: "الإبرة العلاجية غير المغذية", isBreaker: false },
+                        { name: "التحاميل الشرجية المهدئة", isBreaker: false }
+                    ]
+                }
+            },
+            {
+                index: 7,
+                badge: "المسألة الثامنة",
+                title: "أحكام قضاء الصيام",
+                lesson: `
+                    <p>القضاء واجب موسع يجوز تأخيره إلى ما قبل رمضان القادم، ويستحب المبادرة إليه:</p>
+                    <ul class="list-disc pr-5 space-y-2 mt-2 text-emerald-200">
+                        <li><strong>التتابع في القضاء:</strong> لا يلزم التتابع ويجوز تفريق الأيام.</li>
+                        <li><strong>تأخير القضاء دون عذر:</strong> إذا أخر القضاء حتى دخل رمضان التالي بلا عذر فهو آثم، ويلزمه القضاء + التوبة + إطعام مسكين عن كل يوم تأخير.</li>
+                    </ul>
+                `,
+                type: "scenario",
+                challenge: {
+                    instruction: "حل القضايا الفقهية التالية المتعلقة بالقضاء:",
+                    scenarios: [
+                        {
+                            text: "أفطرت عائشة 5 أيام من رمضان الماضي بسبب المرض، فهل يجب عليها صيام الأيام الخمسة متتابعة أم يجوز تفريقها؟",
+                            options: [
+                                { text: "يجوز لها تفريقها وصومها حسب رغبتها وتيسرها", correct: true },
+                                { text: "يجب عليها صيامها متتابعة دون انقطاع بأمر الشرع", correct: false }
+                            ],
+                            feedback: "بالتأكيد! القضاء لا يشترط فيه التتابع بل يصح مفرقاً."
+                        },
+                        {
+                            text: "أخر أحمد قضاء ثلاثة أيام من رمضان قبل الماضي حتى دخل عليه رمضان الجديد تهاوناً وكسلاً بدون أي عذر.",
+                            options: [
+                                { text: "يقضي فقط ولا شيء عليه سوى القضاء", correct: false },
+                                { text: "يلزمه التوبة والقضاء وإطعام مسكين عن كل يوم", correct: true }
+                            ],
+                            feedback: "ممتاز! التأخير بلا عذر يوجب مع القضاء الكفارة الصغرى وهي إطعام مسكين عن كل يوم لفتوى الصحابة."
+                        }
+                    ]
+                }
+            },
+            {
+                index: 8,
+                badge: "المسألة التاسعة",
+                title: "تعيين النيّة للصيام",
+                lesson: `
+                    <p>الصيام عبادة لا تصح إلا بالنية لحديث "إنما الأعمال بالنيات".</p>
+                    <ul class="list-disc pr-5 space-y-2 mt-2 text-emerald-200">
+                        <li><strong>وقت النية:</strong> يجب تعيين النية وتبييتها من الليل لكل يوم فرض يسبقه على الأحوط والراجح.</li>
+                        <li><strong>أين مكان النية؟</strong> النية محلها القلب والتلفظ بها بدعة، والمسلم بمجرد تسحّره فقد نوى ضمناً وحصلت نيتّه فلا يحتاج لتكلف.</li>
+                    </ul>
+                `,
+                type: "scenario",
+                challenge: {
+                    instruction: "صوّب المفاهيم المتعلقة بالنية:",
+                    scenarios: [
+                        {
+                            text: "قام ماجد للسحور وتناول طعامه بنية الصوم غداً، لكنه عاتب نفسه لأنه لم يقل بلسانه 'نويت صيام غد لله تعالى'.",
+                            options: [
+                                { text: "نيته صحيحة فالسحور نية ومحلها القلب والتلفظ بدعة", correct: true },
+                                { text: "صيامه باطل لأنه يجب النطق باللفظ صراحة", correct: false }
+                            ],
+                            feedback: "عظيم! النية عمل قلبي خالص والتلفظ بها لم يرد عن النبي ﷺ."
+                        }
+                    ]
+                }
+            },
+            {
+                index: 9,
+                badge: "المسألة العاشرة",
+                title: "سنن وآداب الصيام",
+                lesson: `
+                    <p>للصيام سنن وآداب عظيمة بها يعظم الأجر ويتحقق كمال التقوى:</p>
+                    <ul class="list-disc pr-5 space-y-2 mt-2 text-emerald-200">
+                        <li><strong>السحور وتأخيره:</strong> "تسحروا فإن في السحور بركة"، والسنة تأخيره لقرب الفجر.</li>
+                        <li><strong>تعجيل الفطر:</strong> "لا يزال الناس بخير ما عجلوا الفطر" ويكون على رطب، فتمر، فماء.</li>
+                        <li><strong>أدب الجوارح واللسان:</strong> وهو الأعظم والأهم، صيام السمع والبصر واللسان عن الغيبة والكذب واللغو والرفث والجهل والخصام.</li>
+                    </ul>
+                `,
+                type: "scenario",
+                challenge: {
+                    instruction: "اختر التصرف الأقرب للسنة المحمدية وآداب الصوم الراقية:",
+                    scenarios: [
+                        {
+                            text: "تعرض صالح للشتم والسب أثناء عمله من أحد المراجعين وهو صائم، كيف يتصرف؟",
+                            options: [
+                                { text: "يرد عليه ليدافع عن كرامته أمام الناس", correct: false },
+                                { text: "يكتم غيظه ويقول بلسانه وقلبه: 'إني صائم، إني صائم'", correct: true }
+                            ],
+                            feedback: "رائع! هذا هو الأدب النبوي السامي؛ ليدفع بالتي هي أحسن ويبين عذر الصوم."
+                        }
+                    ]
+                }
+            }
+        ];
+
+        // START GAME
+        function startGame() {
+            score = 0;
+            completedLevels = {};
+            scorePerLevel = {};
+            document.getElementById('top-score').innerText = `⭐ النقاط: ${score}`;
+            
+            // Switch Screen
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('map-screen').classList.remove('hidden');
+            
+            getAudioContext(); // initializes web audio context safely
+            playVictorySound();
+            renderMap();
+        }
+
+        // RENDER THE INTERACTIVE MAP
+        function renderMap() {
+            const grid = document.getElementById('stages-grid');
+            grid.innerHTML = '';
+            
+            let totalUnlocked = 0;
+            
+            levels.forEach((lvl, idx) => {
+                const isUnlocked = idx === 0 || completedLevels[idx - 1];
+                const isCompleted = completedLevels[idx];
+                
+                if (isUnlocked) totalUnlocked++;
+                
+                const card = document.createElement('div');
+                card.className = `p-5 rounded-2xl border text-center transition-all duration-300 relative overflow-hidden ${
+                    isCompleted 
+                    ? 'bg-emerald-900/80 border-amber-500 shadow-md shadow-emerald-950/50 cursor-pointer hover:scale-105' 
+                    : isUnlocked 
+                        ? 'bg-emerald-950/90 border-emerald-600 shadow cursor-pointer hover:border-amber-500 hover:scale-105' 
+                        : 'bg-emerald-950/30 border-emerald-900/60 opacity-55 cursor-not-allowed select-none'
+                }`;
+                
+                if (isUnlocked) {
+                    card.onclick = () => loadLevel(idx);
+                }
+                
+                // Card Inner HTML
+                card.innerHTML = `
+                    <div class="text-3xl mb-2">${isCompleted ? '✅' : isUnlocked ? '🔓' : '🔒'}</div>
+                    <span class="text-[10px] text-amber-400 block font-bold mb-1">${lvl.badge}</span>
+                    <h5 class="text-sm font-bold text-slate-100 line-clamp-2">${lvl.title}</h5>
+                    ${isCompleted ? `<div class="text-[10px] text-emerald-400 font-bold mt-2">مكتملة (+${scorePerLevel[idx]})</div>` : ''}
+                `;
+                
+                grid.appendChild(card);
+            });
+
+            // Update Progress Bar
+            const progressPercent = (Object.keys(completedLevels).length / levels.length) * 100;
+            document.getElementById('overall-progress').style.width = `${progressPercent}%`;
+
+            // If all levels are completed, show certificate trigger
+            if (Object.keys(completedLevels).length === levels.length) {
+                document.getElementById('finish-game-area').style.display = 'block';
+            } else {
+                document.getElementById('finish-game-area').style.display = 'none';
+            }
+        }
+
+        function exitToMap() {
+            document.getElementById('gameplay-screen').classList.add('hidden');
+            document.getElementById('map-screen').classList.remove('hidden');
+            renderMap();
+        }
+
+        // LOAD LEVEL DATA
+        let activeLevelScenarios = [];
+        let activeScenarioIndex = 0;
+        let activeLevelScore = 0;
+        let activeMatchingPairs = [];
+        let activeMatchingSelected = null;
+        let activeSortingItems = [];
+        let activeSortingIndex = 0;
+
+        function loadLevel(idx) {
+            currentLevelIndex = idx;
+            const lvl = levels[idx];
+            
+            document.getElementById('map-screen').classList.add('hidden');
+            document.getElementById('gameplay-screen').classList.remove('hidden');
+            
+            document.getElementById('level-number-badge').innerText = lvl.badge;
+            document.getElementById('level-title').innerText = lvl.title;
+            
+            // Set up Study View
+            document.getElementById('study-card').classList.remove('hidden');
+            document.getElementById('challenge-card').classList.add('hidden');
+            document.getElementById('lesson-text').innerHTML = lvl.lesson;
+        }
+
+        // TRANSITION FROM LESSON TO CHALLENGE
+        function startLevelChallenge() {
+            document.getElementById('study-card').classList.add('hidden');
+            document.getElementById('challenge-card').classList.remove('hidden');
+            
+            // Reset Challenge View State
+            document.getElementById('feedback-box').classList.add('hidden');
+            
+            const lvl = levels[currentLevelIndex];
+            activeLevelScore = 0;
+            
+            // Build Workspace based on challenge type
+            if (lvl.type === "scenario") {
+                activeLevelScenarios = JSON.parse(JSON.stringify(lvl.challenge.scenarios));
+                activeScenarioIndex = 0;
+                renderScenarioChallenge();
+            } else if (lvl.type === "matching") {
+                activeMatchingPairs = JSON.parse(JSON.stringify(lvl.challenge.pairs));
+                activeMatchingSelected = null;
+                renderMatchingChallenge();
+            } else if (lvl.type === "sorting-belt") {
+                activeSortingItems = JSON.parse(JSON.stringify(lvl.challenge.items));
+                activeSortingIndex = 0;
+                renderSortingChallenge();
+            }
+        }
+
+        // TYPE A: SCENARIO CHALLENGE RENDER
+        function renderScenarioChallenge() {
+            const workspace = document.getElementById('interactive-workspace');
+            const scenario = activeLevelScenarios[activeScenarioIndex];
+            const actions = document.getElementById('level-actions');
+            
+            document.getElementById('feedback-box').classList.add('hidden');
+            
+            workspace.innerHTML = `
+                <div class="space-y-4">
+                    <p class="text-xs text-amber-400 font-bold uppercase tracking-widest mb-1">الموقف الفقهي (${activeScenarioIndex + 1} من ${activeLevelScenarios.length})</p>
+                    <blockquote class="text-base md:text-lg font-bold border-r-4 border-amber-500 pr-4 py-2 bg-emerald-950/40 rounded-l-xl text-slate-100">
+                        "${scenario.text}"
+                    </blockquote>
+                    <p class="text-xs text-slate-400 mt-2">ما التوجيه والقرار الفقهي المناسب والموافق للكتيب العلمي؟</p>
+                    
+                    <div class="grid grid-cols-1 gap-3 mt-4" id="options-container">
+                        ${scenario.options.map((opt, i) => `
+                            <button onclick="submitScenarioAnswer(${i})" class="w-full text-right p-4 rounded-xl border border-emerald-700/60 bg-emerald-900/30 hover:bg-emerald-900/80 active:scale-98 transition-all hover:border-amber-500 text-sm md:text-base font-semibold">
+                                🔹 ${opt.text}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            actions.innerHTML = ''; // Next scenario buttons are driven by feedback step
+        }
+
+        function submitScenarioAnswer(optIndex) {
+            const scenario = activeLevelScenarios[activeScenarioIndex];
+            const isCorrect = scenario.options[optIndex].correct;
+            const buttons = document.getElementById('options-container').getElementsByTagName('button');
+            
+            // Disable all buttons and color code them
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].disabled = true;
+                if (scenario.options[i].correct) {
+                    buttons[i].className = "w-full text-right p-4 rounded-xl border-2 border-emerald-500 bg-emerald-950 text-emerald-300 text-sm md:text-base font-bold";
+                } else {
+                    buttons[i].className = "w-full text-right p-4 rounded-xl border border-red-500/50 bg-red-950/20 text-red-300 opacity-50 text-sm md:text-base";
+                }
+            }
+
+            // Show feedback
+            const feedbackBox = document.getElementById('feedback-box');
+            const fbIcon = document.getElementById('feedback-icon');
+            const fbTitle = document.getElementById('feedback-title');
+            const fbDesc = document.getElementById('feedback-desc');
+            
+            feedbackBox.classList.remove('hidden');
+            if (isCorrect) {
+                playCorrectSound();
+                activeLevelScore += 10;
+                feedbackBox.className = "border border-emerald-500 bg-emerald-950/60 p-4 rounded-2xl transition-all duration-300";
+                fbIcon.innerText = "⭐";
+                fbTitle.className = "font-bold text-emerald-400";
+                fbTitle.innerText = "إجابة موفقة!";
+                fbDesc.innerText = scenario.feedback;
+            } else {
+                playIncorrectSound();
+                feedbackBox.className = "border border-red-500/50 bg-red-950/40 p-4 rounded-2xl transition-all duration-300";
+                fbIcon.innerText = "❌";
+                fbTitle.className = "font-bold text-red-400";
+                fbTitle.innerText = "تحتاج لمراجعة المسألة!";
+                fbDesc.innerText = scenario.feedback + " تذكّر الالتزام الحرفي بنصوص الكتاب الفقهي.";
+            }
+
+            // Set Action Button
+            const actions = document.getElementById('level-actions');
+            const isLast = activeScenarioIndex === activeLevelScenarios.length - 1;
+            
+            actions.innerHTML = `
+                <button onclick="${isLast ? 'finishLevel()' : 'nextScenario()'}" class="bg-amber-500 hover:bg-amber-600 text-emerald-950 font-bold px-6 py-2.5 rounded-xl shadow-lg transition-all active:scale-95 text-sm flex items-center gap-2">
+                    <span>${isLast ? 'تأكيد وحفظ النتيجة' : 'الموقف الفقهي التالي'}</span>
+                    <span>➡️</span>
+                </button>
+            `;
+        }
+
+        function nextScenario() {
+            activeScenarioIndex++;
+            renderScenarioChallenge();
+        }
+
+        // TYPE B: MATCHING CHALLENGE RENDER (Strict Single-Tap Matching for smooth mobile experience)
+        let matchingSelectedState = null; // {type: 'item'|'answer', index: number}
+        let matchedIndices = {}; // index of item -> true
+
+        function renderMatchingChallenge() {
+            const workspace = document.getElementById('interactive-workspace');
+            const actions = document.getElementById('level-actions');
+            
+            matchingSelectedState = null;
+            matchedIndices = {};
+            
+            // Shuffle answers for randomized matching
+            const shuffledAnswers = activeMatchingPairs.map((pair, idx) => ({ text: pair.answer, originalIdx: idx }));
+            shuffledAnswers.sort(() => Math.random() - 0.5);
+
+            workspace.innerHTML = `
+                <div class="space-y-4">
+                    <p class="text-xs text-amber-400 font-bold mb-1">الربط الفقهي: اختر حالة من العمود الأيمن ثم اختر ما يطابقها في العمود الأيسر:</p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Left Column (Items) -->
+                        <div class="space-y-2.5" id="match-items-col">
+                            ${activeMatchingPairs.map((pair, idx) => `
+                                <button id="match-item-${idx}" onclick="selectMatchingElement('item', ${idx})" class="w-full text-right p-3 rounded-xl border border-emerald-700 bg-emerald-900/20 text-xs md:text-sm transition-all focus:outline-none">
+                                    📌 ${pair.item}
+                                </button>
+                            `).join('')}
+                        </div>
+                        
+                        <!-- Right Column (Answers) -->
+                        <div class="space-y-2.5" id="match-answers-col">
+                            ${shuffledAnswers.map((ans, sIdx) => `
+                                <button id="match-ans-${ans.originalIdx}" onclick="selectMatchingElement('answer', ${ans.originalIdx})" class="w-full text-right p-3 rounded-xl border border-emerald-700 bg-emerald-900/20 text-xs md:text-sm transition-all focus:outline-none">
+                                    💡 ${ans.text}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            actions.innerHTML = `
+                <button id="matching-submit-btn" disabled class="bg-emerald-800 text-emerald-500 opacity-50 font-bold px-6 py-2.5 rounded-xl cursor-not-allowed text-sm">
+                    اربط كافة المسائل للمتابعة
+                </button>
+            `;
+        }
+
+        function selectMatchingElement(type, originalIdx) {
+            // If already matched, ignore
+            if (matchedIndices[originalIdx]) return;
+
+            // Clear previous highlighting on non-matched components
+            resetHighlighting();
+
+            if (!matchingSelectedState) {
+                // First selection
+                matchingSelectedState = { type, originalIdx };
+                highlightElement(type, originalIdx, 'border-amber-500 bg-amber-500/10 text-amber-300');
+            } else {
+                // Second selection
+                if (matchingSelectedState.type === type) {
+                    // Changed mind, select new one of same column
+                    matchingSelectedState = { type, originalIdx };
+                    highlightElement(type, originalIdx, 'border-amber-500 bg-amber-500/10 text-amber-300');
+                } else {
+                    // Matching Attempt!
+                    if (matchingSelectedState.originalIdx === originalIdx) {
+                        // CORRECT Match!
+                        playCorrectSound();
+                        activeLevelScore += 10;
+                        matchedIndices[originalIdx] = true;
+                        
+                        highlightElement('item', originalIdx, 'border-emerald-500 bg-emerald-950 text-emerald-400 font-bold opacity-60 pointer-events-none');
+                        highlightElement('answer', originalIdx, 'border-emerald-500 bg-emerald-950 text-emerald-400 font-bold opacity-60 pointer-events-none');
+                        
+                        // Disable buttons
+                        document.getElementById(`match-item-${originalIdx}`).disabled = true;
+                        document.getElementById(`match-ans-${originalIdx}`).disabled = true;
+                    } else {
+                        // INCORRECT Match
+                        playIncorrectSound();
+                        highlightElement(type, originalIdx, 'border-red-500 bg-red-950 text-red-300');
+                        highlightElement(matchingSelectedState.type, matchingSelectedState.originalIdx, 'border-red-500 bg-red-950 text-red-300');
+                        
+                        setTimeout(() => {
+                            resetHighlighting();
+                        }, 1000);
+                    }
+                    matchingSelectedState = null;
+                }
+            }
+
+            // Check if all matched
+            if (Object.keys(matchedIndices).length === activeMatchingPairs.length) {
+                const actions = document.getElementById('level-actions');
+                actions.innerHTML = `
+                    <button onclick="finishLevel()" class="bg-amber-500 hover:bg-amber-600 text-emerald-950 font-bold px-6 py-2.5 rounded-xl shadow-lg transition-all active:scale-95 text-sm">
+                        إنهاء المرحلة وحفظ النتيجة ✨
+                    </button>
+                `;
+            }
+        }
+
+        function highlightElement(type, idx, classes) {
+            const elId = type === 'item' ? `match-item-${idx}` : `match-ans-${idx}`;
+            const el = document.getElementById(elId);
+            if (el) {
+                el.className = `w-full text-right p-3 rounded-xl border ${classes} text-xs md:text-sm transition-all focus:outline-none`;
+            }
+        }
+
+        function resetHighlighting() {
+            activeMatchingPairs.forEach((_, idx) => {
+                if (!matchedIndices[idx]) {
+                    highlightElement('item', idx, 'border-emerald-700 bg-emerald-900/20 text-slate-100');
+                    highlightElement('answer', idx, 'border-emerald-700 bg-emerald-900/20 text-slate-100');
+                }
+            });
+        }
+
+
+        // TYPE C: CONVEYOR BELT / FAST SORTING CHALLENGE
+        function renderSortingChallenge() {
+            const workspace = document.getElementById('interactive-workspace');
+            const actions = document.getElementById('level-actions');
+            
+            document.getElementById('feedback-box').classList.add('hidden');
+            
+            const currentItem = activeSortingItems[activeSortingIndex];
+            
+            workspace.innerHTML = `
+                <div class="text-center space-y-6">
+                    <div>
+                        <p class="text-xs text-amber-400 font-bold tracking-widest uppercase">تحدي التصنيف السريع (${activeSortingIndex + 1} من ${activeSortingItems.length})</p>
+                        <h5 class="text-xs text-slate-400 mt-1">هل المادة/التصرف التالي يفطر الصائم أم لا يفسد صومه؟</h5>
+                    </div>
+
+                    <!-- Floating Item Card -->
+                    <div class="max-w-xs mx-auto py-6 px-4 bg-emerald-950/80 border-2 border-amber-500/40 rounded-2xl shadow-lg transform hover:scale-102 transition-all">
+                        <span class="text-4xl block mb-2">💧</span>
+                        <span class="text-lg font-bold text-slate-100" id="sorting-item-name">${currentItem.name}</span>
+                    </div>
+
+                    <!-- Dual Option Buttons (Perfect for Mobile Tapping) -->
+                    <div class="grid grid-cols-2 gap-4 max-w-sm mx-auto">
+                        <button onclick="submitSortingAnswer(true)" class="bg-red-950/40 hover:bg-red-900/60 border border-red-500/40 text-red-300 font-bold py-3.5 rounded-xl active:scale-95 transition-all text-sm">
+                            🚨 يُفطّر الصائم
+                        </button>
+                        <button onclick="submitSortingAnswer(false)" class="bg-emerald-900/40 hover:bg-emerald-800/60 border border-emerald-500/40 text-emerald-300 font-bold py-3.5 rounded-xl active:scale-95 transition-all text-sm">
+                            ✅ لا يُفطّر (صحيح)
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            actions.innerHTML = '';
+        }
+
+        function submitSortingAnswer(claimedIsBreaker) {
+            const currentItem = activeSortingItems[activeSortingIndex];
+            const isCorrect = currentItem.isBreaker === claimedIsBreaker;
+            
+            // Provide Sound / Score feedback
+            if (isCorrect) {
+                playCorrectSound();
+                activeLevelScore += 5; // 5 points per sort item
+            } else {
+                playIncorrectSound();
+            }
+
+            // Visual flash/feedback on workspace
+            const workspace = document.getElementById('interactive-workspace');
+            workspace.classList.add(isCorrect ? 'border-emerald-500' : 'border-red-500');
+            
+            // Advance or finish
+            setTimeout(() => {
+                workspace.classList.remove('border-emerald-500', 'border-red-500');
+                
+                if (activeSortingIndex < activeSortingItems.length - 1) {
+                    activeSortingIndex++;
+                    renderSortingChallenge();
+                } else {
+                    finishLevel();
+                }
+            }, 350);
+        }
+
+        // SAVE AND FINISH LEVEL
+        function finishLevel() {
+            completedLevels[currentLevelIndex] = true;
+            scorePerLevel[currentLevelIndex] = activeLevelScore;
+            
+            // Re-calculate Total Points
+            score = Object.values(scorePerLevel).reduce((a, b) => a + b, 0);
+            document.getElementById('top-score').innerText = `⭐ النقاط: ${score}`;
+            
+            exitToMap();
+            playVictorySound();
+        }
+
+        // SHOW THE FINAL GRADUATION CERTIFICATE
+        function showFinalCertificate() {
+            document.getElementById('map-screen').classList.add('hidden');
+            document.getElementById('certificate-screen').classList.remove('hidden');
+            
+            // Display stats on certificate
+            const maxScore = 150; // Total potential points across scenarios & matches & sorting
+            document.getElementById('cert-score').innerText = `${score} / ${maxScore}`;
+            
+            // Rank evaluation based on score
+            let rank = "صائم واعد";
+            if (score >= 135) {
+                rank = "فقيه الديار الواعد 🎓";
+            } else if (score >= 105) {
+                rank = "فارس الصيام المتقن ⚔️";
+            } else if (score >= 70) {
+                rank = "طالب علم نبيه 📚";
+            }
+            document.getElementById('cert-rank').innerText = rank;
+        }
+
+        function restartGame() {
+            document.getElementById('certificate-screen').classList.add('hidden');
+            startGame();
+        }
+
+        // Initialize App on Window Load
+        window.onload = function() {
+            generateStars();
+        };
+    </script>
+</body>
+</html>
+
+```
